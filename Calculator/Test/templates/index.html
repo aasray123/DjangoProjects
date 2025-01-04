@@ -1,0 +1,24 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="{%static 'index.css'%}">
+</head>
+<body>
+    <div class="calculator">
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" name="expression" value="{{ result }}" readonly>
+            <div class="buttons">
+                {% comment %} Creation of the buttons using for loop {% endcomment %}
+                {% for num in "789/456*123-0.=+" %} 
+                    <button type="submit" name="expression" value="{{ num }}">{{ num }}</button>
+                {% endfor %}
+            </div>
+        </form>
+    </div>
+</body>
+</html>
