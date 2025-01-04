@@ -20,5 +20,11 @@
             </div>
         </form>
     </div>
+    <script>
+        // Check if its refreshed and then clear it
+        if ( window.history.replaceState ) {
+            window.history.replaceState( null, null, window.location.href );
+        }
+    </script>
 </body>
 </html>
