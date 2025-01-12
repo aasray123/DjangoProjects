@@ -20,5 +20,5 @@ from . import views
 #TESTING
 
 urlpatterns = [
-    path('', views.lobby, name='lobby'),
+    path('/helpme', views.lobby, name='lobby'),
 ]
