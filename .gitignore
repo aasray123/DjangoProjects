@@ -1,0 +1,8 @@
+Bundle/*.log
+Bundle/*.pot
+Bundle/*.pyc
+Bundle/__pycache__/
+Bundle/local_settings.py
+Bundle/db.sqlite3
+Bundle/db.sqlite3-journal
+Bundle/media
