@@ -1,7 +1,7 @@
 from django.shortcuts import HttpResponse, render, redirect
 from django.template import loader
 
-def home(request):
+def lobby(request):
     
         
-    return None
+    return render(request, 'chat/lobby.html')

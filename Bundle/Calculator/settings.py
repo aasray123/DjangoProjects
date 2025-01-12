@@ -25,12 +25,15 @@ SECRET_KEY = 'django-insecure-ii0ddmxo)8u+dzt9-7q3uxgrf0-u26u)xh6+n5cm3rdf-mgtu%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['AasHat.pythonanywhere.com']
+ALLOWED_HOSTS = ['AasHat.pythonanywhere.com', '127.0.0.1']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
+    'daphne',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,7 +41,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Test',
+    'chat',
 ]
+ASGI_APPLICATION = 'Calculator.asgi.application'
+
+CHANNEL_LAYERS = {
+    'default':{
+        'BACKEND':'channels.layers.InMemoryChannelLayer'
+    }
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
