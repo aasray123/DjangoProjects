@@ -21,14 +21,20 @@ class ChatroomConsumer(WebsocketConsumer):
                 async def function()
                     await self.accept()
         Option 2:
-            async_to_sync(self.channel_layer.group_add)
+            async_to_sync(self.channel_layer.group_add)()
         
         """
-        async_to_sync(self.channel_layer.group_add(
+        async_to_sync(self.channel_layer.group_add)(
             self.chatroom_name, self.channel_name #Channel name is unique id ish thing
-        ))
+        )
 
         self.accept()
+
+
+    def disconnect(self, close_code):
+        async_to_sync(self.channel_layer.group_discard)(
+            self.chatroom_name,self.channel_name
+        )
 
     def receive(self, text_data):
         #text_data is json
@@ -38,13 +44,25 @@ class ChatroomConsumer(WebsocketConsumer):
         #Adding the message into the thing
         message = GroupMessage.objects.create(
             body = body,
-            group = self.chatroom,
-            author = self.user
-
+            author = self.user,
+            group = self.chatroom
         )
+        event = { #Dictionary Def with key and value
+            'type': 'message_handler', #Says with function it should handle!
+            'message_id': message.id,
+        }
+        
+        async_to_sync(self.channel_layer.group_send)(
+           self.chatroom_name, event 
+        )
+
+    def message_handler(self, event):
+        message_id = event['message_id']
+        message = GroupMessage.objects.get(id=message_id)
         context = {
             'message' : message,
             'user': self.user,
+            'chat_group': self.chatroom,
         }
         html = render_to_string("a_rtchat/partials/chat_message_p.html", context = context)
         self.send(text_data=html)
