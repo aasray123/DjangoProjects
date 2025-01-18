@@ -31,8 +31,13 @@ ALLOWED_HOSTS = ['AasHat.pythonanywhere.com', '127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
-    'channels',
+    
     'daphne',
+    'django_cleanup.apps.CleanupConfig',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'django_htmx',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -42,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Test',
     'chat',
+    'cricket',
 ]
 ASGI_APPLICATION = 'Calculator.asgi.application'
 
